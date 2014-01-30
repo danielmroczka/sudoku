@@ -9,6 +9,6 @@
     <modules>
         <module>sudoku-core</module>
         <module>sudoku-web</module>
-        <module>sudoku-apk</module>
+        <!--<module>sudoku-apk</module>-->
     </modules>
 </project>
