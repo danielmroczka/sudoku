@@ -4,14 +4,11 @@
 
 package com.labs.dm.sudoku.core;
 
+import com.labs.dm.sudoku.core.validator.Validator;
 import com.labs.dm.sudoku.io.MatrixLoader;
 import java.io.IOException;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -24,7 +21,7 @@ public class SudokuSolverTest {
         MatrixLoader loader = new MatrixLoader();
         Matrix matrix = loader.load("patterns/real.txt");
         SudokuSolver solver = new SudokuSolver();
-        assertTrue(solver.solve(matrix));
+        assertTrue(Validator.isSolved(solver.solve(matrix)));
     }
     
 }

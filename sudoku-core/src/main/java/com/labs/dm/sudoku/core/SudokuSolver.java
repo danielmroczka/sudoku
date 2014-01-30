@@ -10,22 +10,20 @@ import com.labs.dm.sudoku.core.validator.Validator;
  */
 public class SudokuSolver {
 
-    private final int SIZE = 9;
     private final int EMPTY = 0;
 
-    public boolean solve(Matrix array) {
-        boolean res = false;
+    public Matrix solve(Matrix array) {
         if (Validator.isValid(array)) {
-            res = solve(0, 0, array);
+            solve(0, 0, array);
         }
-        printMatrix(array);
-        return res;
+        System.out.println(array.toString());
+        return array;
     }
 
     private boolean solve(int row, int col, Matrix cells) {
-        if (row == SIZE) {
+        if (row == Matrix.SIZE) {
             row = 0;
-            if (++col == SIZE) {
+            if (++col == Matrix.SIZE) {
                 return true;
             }
         }
@@ -34,7 +32,7 @@ public class SudokuSolver {
             return solve(row + 1, col, cells);
         }
 
-        for (int val = 1; val <= SIZE; ++val) {
+        for (int val = 1; val <= Matrix.SIZE; ++val) {
             if (accept(row, col, val, cells)) {
                 cells.tab[row][col] = val;
                 if (solve(row + 1, col, cells)) {
@@ -42,18 +40,18 @@ public class SudokuSolver {
                 }
             }
         }
-        cells.tab[row][col] = 0; // reset on backtrack
+        cells.tab[row][col] = 0;
         return false;
     }
 
     private boolean accept(int row, int col, int val, Matrix cells) {
-        for (int rowIdx = 0; rowIdx < SIZE; ++rowIdx) {
+        for (int rowIdx = 0; rowIdx < Matrix.SIZE; ++rowIdx) {
             if (val == cells.tab[rowIdx][col]) {
                 return false;
             }
         }
 
-        for (int colIdx = 0; colIdx < SIZE; ++colIdx) {
+        for (int colIdx = 0; colIdx < Matrix.SIZE; ++colIdx) {
             if (val == cells.tab[row][colIdx]) {
                 return false;
             }
@@ -70,24 +68,6 @@ public class SudokuSolver {
         }
 
         return true; // no violations, so it's legal
-    }
-
-    private void printMatrix(Matrix solution) {
-        String line = " -----------------------";
-        for (int i = 0; i < SIZE; ++i) {
-            if (i % 3 == 0) {
-                System.out.println(line);
-            }
-            for (int j = 0; j < SIZE; ++j) {
-                if (j % 3 == 0) {
-                    System.out.print("| ");
-                }
-                System.out.print(solution.tab[i][j] == 0 ? " " : Integer.toString(solution.tab[i][j]));
-                System.out.print(' ');
-            }
-            System.out.println("|");
-        }
-        System.out.println(line);
     }
 
 }

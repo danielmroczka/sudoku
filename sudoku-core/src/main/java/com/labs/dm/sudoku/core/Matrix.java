@@ -53,4 +53,31 @@ public class Matrix {
         tab[row][col] = value;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        String line = " -----------------------";
+        for (int i = 0; i < Matrix.SIZE; ++i) {
+            if (i % 3 == 0) {
+                //System.out.println(line);
+                sb.append(line);
+                sb.append("\n");
+            }
+            for (int j = 0; j < Matrix.SIZE; ++j) {
+                if (j % 3 == 0) {
+                    sb.append("| ");
+
+                }
+                sb.append(tab[i][j] == 0 ? " " : Integer.toString(tab[i][j]));
+                sb.append(' ');
+            }
+            sb.append("|");
+            sb.append("\n");
+        }
+        sb.append(line);
+        sb.append("\n");
+
+        return sb.toString();
+    }
+
 }
